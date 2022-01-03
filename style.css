@@ -1,0 +1,11 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.5;
+}
+
+div.quoteblock li > *,
+div.verseblock li > *,
+div.quoteblock li strong,
+div.verseblock li strong {
+    color: #888;
+}

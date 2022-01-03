@@ -1,0 +1,76 @@
+= Experiment design
+Ahmad Khayyat; Hazem Selmi;
+162, 17 March 2017
+
+
+== Objectives
+
+To practice and evaluate the students ability to design and conduct experiments
+
+
+== Parts List
+
+- LPC1769 LPCXpresso board
+- Depends on the student choice of the experiment
+
+
+== Background
+
+One of the outcomes of COE program is:
+“An ability to design and conduct experiments, as well as to analyze and interpret data.”
+
+To practice that, you are required to design an experiment to figure out and explore some issue related to LPC1769. This issue can be a new idea or related to any of the previous experiments. You should try to do the following:
+
+.	Identifying clear goals for the experiment.
+.	Choosing the appropriate experimental test bed (Hardware, Software, Emulation, Simulation, or hybrid) to achieve the identified objectives of the experiment.
+.	Designing and conducting the experiment.
+.	Ability to analyze and interpret the data.
+
+
+
+== Task
+
+It is totally your own responsibility to set the goal of the experiment and it is open to any issue you want to explore.
+However, (In case you don't have something in your mind), you can look to examples below :
+
+A.	Find out the CPU Clock  (CCLK) frequency. (Do an experiment, collect data and do your calculations  to find the CPU clock).
+
+B.	Compare the polling vs. external interrupt latencies.
+
+C.	Design and conduct an experiment to understand how a specific sensor or actuator works (examples: ultrasonic sensor, step motor ….)
+
+D.	Design and conduct an experiment to figure out how one of the peripherals you didn’t cover in the previous experiment.
+Examples:
+
+
+*	UART communication
+*	I2C communication
+*	Motor control PWM (chapter 25 in the LPC1769 Manual)
+
+
+
+[NOTE]
+==================================================
+The objective is _NOT_ to find the answer of one of the above issues (or any other) by searching the internet or asking a friend.
+The objective is to find out by experimenting.
+That does not mean you can't search or ask for a better understanding of the issue you are trying to experiment.
+==================================================
+
+
+== Resources
+
+[[[lpc1769-manual]]] :: NXP Semiconductors. _UM10360 -- LPC176x/5x User
+  Manual_. Rev. 4.1. 19 December 2016. +
+  http://www.nxp.com/documents/user_manual/UM10360.pdf
+
+
+== Grading Sheet
+
+[cols="5,1",options="header"]
+|==================================================
+| Task | Points
+
+| experimental idea | 3
+| Conducting the experiment | 4
+| Analyzing the result | 3
+|==================================================

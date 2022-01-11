@@ -1,6 +1,6 @@
 = Experiment 3: Interrupts
 Hazem Selmi; Ahmad Khayyat; Saleh AlSaleh
-212, 28 December 2021
+212, 11 January 2022
 
 == Objectives
 
@@ -180,6 +180,20 @@ void TIMER2_IRQHandler() {
 --------------------------------------------------
 ==================================================
 
+[NOTE]
+==================================================
+If you are using mbed online compiler, you need to wrap the interrupt handler by an `extern "C"` as shown below because mbed online compiler uses C++ compiler instead of C compiler.
+[source,c]
+--------------------------------------------------
+extern "C" {
+   void TIMER2_IRQHandler() {
+    // Your code goes here
+    // Clear the interrupt request at the end of the ISR
+  }
+}
+--------------------------------------------------
+
+==================================================
 
 ==== Clearing the Interrupt Request
 

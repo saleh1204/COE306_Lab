@@ -1,6 +1,6 @@
 = Experiment 4: Hardware Timers
 Hazem Selmi; Ahmad Khayyat; Mansour Alharthi; Saleh AlSaleh
-212, 30 December 2021
+212, 11 January 2022
 
 == Objectives
 

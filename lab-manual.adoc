@@ -1,6 +1,6 @@
 = Embedded Systems Lab Manual
 Ahmad Khayyat; Hazem Selmi; Saleh AlSaleh
-212, 2 January 2021
+212, 11 January 2022
 
 :leveloffset: 1
 

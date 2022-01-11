@@ -1,6 +1,6 @@
 = Experiment 1: Development Platform
 Ahmad Khayyat; Hazem Selmi; Saleh AlSaleh
-212, 28 December 2021
+212, 11 January 2022
 
 
 == Objectives
@@ -61,6 +61,22 @@ The LPCXpresso board consists of two parts:
 . LPC-Link: a debug probe for debugging and the target
   microcontroller.
 
+=== Compilation Methods
+
+There are two main ways to compile C/C++ code for LPC1768:
+
+. Using mbed online compiler where you only need a web browser to compile the source code and download the binary. Then, you need to copy the binary file to the mbed drive.
+In order to use mbed online compiler, you need to create an account at https://os.mbed.com/ide/[mbed online compiler].
+
+. Using MCUXpresso IDE which allows a wide range of advanced debugging features. The MCUXpresso IDE will build/compile the project and transfer the compiled binary to the development board. Then, it will start execution of the `main` function.
+
+[IMPORTANT]
+=================================================
+In order to use MCUXpresso IDE with LPC1768, the LPC1768 must have firemware version equal to or greater than `141212`. The firmware version is stored in the `MBED.htm` file in the LPC1768, use a text editor to open the `MBED.htm` file. Please refere to https://os.mbed.com/handbook/Firmware-LPC1768-LPC11U24[LPC1768_Firmware] to download and upgrade the firmware of the LPC1768.
+=================================================
+
+
+MCUXpresso IDE will be used for the lab manual, but feel free to use mbed online compiler.
 
 === MCUXpresso IDE
 
@@ -79,8 +95,7 @@ offers the choice of two C libraries:
 To install your copy of the MCUXpresso IDE:
 
 . Using a web browser, navigate to the
-https://www.nxp.com/design/software/development-software/mcuxpresso-software-and-tools-/mcuxpresso-integrated-development-environment-ide:MCUXpresso-IDE:[LPC
-Microcontroller Utilities] page, then follow the MCUXpresso IDE link.
+https://www.nxp.com/design/software/development-software/mcuxpresso-software-and-tools-/mcuxpresso-integrated-development-environment-ide:MCUXpresso-IDE[MCUXpresso Integrated Development Environment (IDE)] page.
 
 . Use the _Download_ button to go to the download page, then use the download
 link that matches your operating system.
@@ -94,7 +109,7 @@ NOTE: You may need to create an account to access the download page.
 The LPC1768 microcontroller has five input/output (I/O) ports. Each
 port is 32 bits. However, not all of them are available for the
 developer. For example, pins 12, 13, 14, and 31 of port 0 are not
-available, leaving only 28 pins of port 0 available for the user.
+available.
 
 Each of the I/O pins can be referred to using the port number and the pin
 number. For example, `P0.17` or `P0[17]` is pin 17 in port 0, and `P1.22` or
@@ -129,7 +144,7 @@ The pin layout of the LPC1768 mbed board is shown in the
 
 [[lpc1768-pin-layout]]
 .LPC1768 pin layout
-image::images/pins.jpeg["LPC1768 pin layout"]
+image::images/lpc1768_pinout.png["LPC1768 pin layout"]
 
 
 
@@ -504,6 +519,11 @@ You can run the debugger using any of the following three ways:
 . In the toolbar, click on the debug button image:images/eclipse-debug-button.png[].
 ==================================================
 
+[NOTE]
+==================================================
+You may need to download and install https://os.mbed.com/handbook/Windows-serial-configuration[mbedWinSerial] application if you cannot find the target board.
+==================================================
+
 . Once the debugger starts, it will pause execution at the first
   statement in the progrm. Resume execution by hitting the `F8` key,
   or using the resume button in the toolbar
@@ -547,6 +567,6 @@ Embedded Artists AB. _Board Schematics for current LPC1768
 * [[[c-data-structures]]] 
 +
 Data Structures in C. +
-http://www.ccse.kfupm.edu.sa/~salehs/courses/coe306-212/data-structures-in-c.html
+http://www.ccse.kfupm.edu.sa/~salehs/courses/212-coe306/html/data-structures-in-c.html
 
 

@@ -1,6 +1,6 @@
 = Programming Assignment: Seven-Segment Display and C Libraries
 Hazem Selmi; Ahmad Khayyat; Saleh AlSaleh
-212, 29 December 2021
+212, 11 January 2022
 
 == Objectives
 

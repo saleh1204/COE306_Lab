@@ -1,6 +1,6 @@
 = Experiment 8: Microcontroller on an FPGA
 Mohannad Mostafa; Ahmad Khayyat; Hazem Selmi; Saleh AlSaleh
-212, 29 December 2021
+212, 11 January 2022
 :highlightjs-languages: verilog
 
 == Objectives

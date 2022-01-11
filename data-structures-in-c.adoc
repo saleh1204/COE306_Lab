@@ -1,6 +1,6 @@
 = Data Structures in C
 Ahmad Khayyat; Hazem Selmi; Saleh AlSaleh
-162, 13 February 2017
+212, 11 January 2022
 
 
 == Objectives

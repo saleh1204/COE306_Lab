@@ -1,6 +1,6 @@
 = Experiment 6: Pulse-Width Modulation
 Hazem Selmi; Ahmad Khayyat; Saleh AlSaleh
-212, 30 December 2021
+212, 11 January 2022
 
 == Objectives
 

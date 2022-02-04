@@ -411,7 +411,7 @@ to HIGH (1), and a command to Clear it to LOW (0).
 TIP: A `0` in a _SET_ or a _CLR_ register has no effect on the port pins!
 
 TIP: A basic way to add _delay_ is to use a `for` loop, e.g.:
-`for(i=0;i<500000,i++);`. You will learn about more sophisticated and accurate
+`for(i=0;i<500000;i++);`. You will learn about more sophisticated and accurate
 ways in later experiments.
 
 
@@ -474,7 +474,7 @@ TIP: Refer to the LPC1768 board documentation.
   _Archive_ field, and choose:
 +
 ..................................................
-C:\nxp\MCUXpressoIDE_<version>\ide\Examples\Legacy\CMSIS_CORE\CMSIS_CORE_Latest.zip
+C:\nxp\MCUXpressoIDE_<version>\ide\plugins\com.nxp.mcuxpresso.tools.wizards_<version>\Examples\Legacy\CMSIS_CORE\CMSIS_CORE_Latest.zip
 ..................................................
 
 . Keep only these two projects selected: `CMSIS_CORE_LPC17xx` and

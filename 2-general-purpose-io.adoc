@@ -70,8 +70,7 @@ Bitwise operators apply to each bit of their operands.
 
 |==================================================
 
-NOTE: In C, numbers can be written in decimal, octal, or hexadecimal,
-but not in binary, e.g. `16 = 020 = 0x10`.
+NOTE: In C, numbers can be written in decimal, octal, hexadecimal, or binary, e.g. `16 = 020 = 0x10 = 0b10000`.
 
 WARNING: Right-shifting in C is implementation-specific. Often,
 _logical shifting_ is applied to unsigned values, whereas _arithmetic
@@ -260,7 +259,7 @@ In this experiments, you will control LED lights by software.
 
 === Software
 
-==== Blink an LED using `FIOSET` and `FIOCLR`
+==== Blink an LED without using `FIOSET` and `FIOCLR`
 
 Pick an LED and blink it using _only one `FIOPIN` statement_ and _one
 delay loop!_

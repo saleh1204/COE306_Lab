@@ -1,6 +1,6 @@
-= Experiment 4: Hardware Timers
+= Experiment 5: Hardware Timers
 Hazem Selmi; Ahmad Khayyat; Mansour Alharthi; Saleh AlSaleh
-212, 11 January 2022
+212, 14 February 2022
 
 == Objectives
 

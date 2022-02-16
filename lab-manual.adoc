@@ -10,9 +10,9 @@ include::2-general-purpose-io.adoc[]
 
 include::3-interrupts.adoc[]
 
-include::4-hardware-timers.adoc[]
+include::4-analog-input-output.adoc[]
 
-include::5-analog-input-output.adoc[]
+include::5-hardware-timers.adoc[]
 
 include::6-pwm.adoc[]
 

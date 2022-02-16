@@ -1,11 +1,10 @@
 = Experiment 3: Interrupts
 Hazem Selmi; Ahmad Khayyat; Saleh AlSaleh
-212, 11 January 2022
+212, 14 February 2022
 
 == Objectives
 
-- Understand interrupts in LPC1769
-- Introduce the `PINSELx` registers
+- Understand interrupts in LPC1768
 - Using external interrupts
 
 
@@ -182,7 +181,7 @@ void TIMER2_IRQHandler() {
 
 [NOTE]
 ==================================================
-If you are using mbed online compiler, you need to wrap the interrupt handler by an `extern "C"` as shown below because mbed online compiler uses C++ compiler instead of C compiler.
+If you are using mbed online compiler, you need to wrap the interrupt handler by an `extern "C"` as shown below since mbed online compiler uses C++ compiler rather than C compiler.
 [source,c]
 --------------------------------------------------
 extern "C" {
@@ -291,7 +290,7 @@ Any GPIO pin used for external interrupts will be using external
 interrupt channel 3 (`EINT3`).
 
 You can use GPIO pins from ports 0 and 2 only for external
-interrupts. You have about 40 different pins to choose from. Compare
+interrupts. You have about 24 different pins to choose from. Compare
 that, for example, to ARM7 where only 7 pins are available for
 external interrupts.
 
@@ -316,7 +315,7 @@ In the two following sections, we will discuss and practice:
 
 ==== GPIO external interrupts
 
-As discussed in <<_setting_up_interrupts_in_lpc1768>>, you always need to enable
+GPIO external interrupts share the same ISR for EINT3. As discussed in <<_setting_up_interrupts_in_lpc1768>>, you always need to enable
 the NVIC and write an ISR.
 
 For GPIO external interrupts, that leaves two more steps:
@@ -398,109 +397,21 @@ EINT3 :: P2.13
 
 However, These four pins are not available in LPC1768 mbed board. 
 
-[[PINSEL]]
-=== The `PINSELx` Registers
 
-[NOTE]
-==================================================
-This section is not specific to interrupts. It is about configuring
-the function of a pin in a port. One possible functions is _external
-interrupt_.
-==================================================
-
-The <<config_interrupts,Configuring Interrupts>> section above covered
-three of the four required steps to fully setup interrupts. The
-remaining step is to configure the hardware that is responsible for
-generating the interrupt request. This step is largely dependent on
-the hardware that is going to generate the request, but is always
-required.
-
-Configuring the hardware involves a common step regardless of the
-hardware being configured. That common step is configuring the
-functions of the relevant pins.
-
-Each pin can be configured to perform one of four
-functions. Therefore, the function of each pin is controlled by two
-bits, as follows:
-
-[horizontal]
-00 :: Primary (default) function, (GPIO)
-01 :: First alternate function
-10 :: Second alternate function
-11 :: Third alternate function
-
-As such, to configure the functions of the five 32-bit ports, ten
-function selection registers are required. They are named `PINSEL0`,
-`PINSEL1`, `PINSEL2`, ..., `PINSEL9`. `PINSEL0` controls the
-functions of the lower half of port 0 (P0.0 to P0.15), `PINSEL1`
-controls the functions of pins P0.16 to P0.31, `PINSEL2` controls the
-functions of pins P1.0 to P1.15, and so on.
-
-For example, the two least significant bits in `PINSEL0` control the
-function of pin P0.0 as follows:
-
-[horizontal]
-00 :: GPIO
-01 :: `RD1`: CAN1 receiver input
-10 :: `TXD3`: Transmitter output for UART3
-11 :: `SDA1`: I2C1 data input/output
-
-(See Table 73 in the <<lpc1768-manual,LPC1768 User Manual>>.)
-
-[TIP]
-==================================================
-All `PINSELx` registers are fields in the `LPC_PINCON` structure.
-==================================================
-
-So, to configure P0.0 to function as `TXD3` instead of GPIO:
-
-[source,c]
---------------------------------------------------
-LPC_PINCON -> PINSEL0 = 0x00000002;   // Assignments like this are not the best way,
-                                      // unless you want to set the remaining pins to GPIO
---------------------------------------------------
-
-[NOTE]
-==================================================
-To avoid affecting other pins, You may want to use bitwise operations
-to set and/or clear the required bits in `PINSELx`.
-==================================================
-
-[NOTE]
-==================================================
-Using `00` for any pin sets its function to GPIO. The reset value for
-`PINSELx` registers is `0x00000000`. That is why the default function
-for all I/O pins after a reset is GPIO.
-==================================================
-
-[NOTE]
-==================================================
-You may want to refer back to this section whenever you want a pin to
-have a function other than GPIO.
-==================================================
 
 
 == Tasks
 
 === One External Interrupt
 
-. Use a push-button to generate an external interrupt using a GPIO
+Use a push-button to generate an external interrupt using a GPIO
   pin. Do something interesting in the ISR!
-
-. Use a push-button to generate an external interrupt using a non-GPIO
-  pin, i.e. a pin explicitly configured for external interrupts. Use
-  the same ISR from task 1.
 
 
 === Two External Interrupts
 
-[start=3]
-. Use two external interrupts, where each interrupt triggers a different task. For example, each interrupt could blink an LED 10 times at a different rate.
-+
-The faster rate interrupt should have a higher priority; if it is
-activated while the slow rate interrupt is being serviced, the slow
-rate interrupt handler will be paused to service the fast rate
-interrupt and then come back to the _pending_ slow interrupt.
+
+Use two external interrupts, where each interrupt triggers a different task. For example, each interrupt could blink an LED 10 times at a different rate.
 
 WARNING: All tasks must be completed during the lab session.
 
@@ -511,10 +422,9 @@ WARNING: All tasks must be completed during the lab session.
 |==================================================
 | Task | Points
 
-| Task 1: External interrupt using a GPIO pin     |  2
-| Task 2: External interrupt using a non-GPIO pin |  3
-| Task 3: Two external interrupts with priorities |  3
-| Discussion                                      |  2
+| Task 1: External interrupt using a GPIO pin     |  3.5
+| Task 2: Two external interrupts 				  |  3.5
+| Discussion                                      |  3
 |==================================================
 
 [bibliography]

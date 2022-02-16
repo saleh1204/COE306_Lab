@@ -2,8 +2,8 @@ HTML := 1-development-platform.html    \
         data-structures-in-c.html      \
         2-general-purpose-io.html      \
         3-interrupts.html              \
-        4-hardware-timers.html         \
-        5-analog-input-output.html     \
+        4-analog-input-output.html     \
+        5-hardware-timers.html         \
         6-pwm.html                     \
         7-serial-communication.html    \
         8-microcontroller-on-fpga.html \
@@ -15,8 +15,8 @@ PDF  := 1-development-platform.pdf    \
         data-structures-in-c.pdf      \
         2-general-purpose-io.pdf      \
         3-interrupts.pdf              \
-        4-hardware-timers.pdf         \
-        5-analog-input-output.pdf     \
+        4-analog-input-output.pdf     \
+        5-hardware-timers.pdf         \
         6-pwm.pdf                     \
         7-serial-communication.pdf    \
         8-microcontroller-on-fpga.pdf \

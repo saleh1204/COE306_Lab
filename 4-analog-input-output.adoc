@@ -1,8 +1,9 @@
-= Experiment 5: Analog Input and Output
+= Experiment 4: Analog Input and Output
 Hazem Selmi; Ahmad Khayyat; Saleh AlSaleh
-212, 11 January 2022
+212, 14 February 2022
 
 == Objectives
+- Introduce the `PINSELx` registers
 
 - Using the _Analog-to-Digital Converter (ADC)_ to read analog input
 
@@ -60,10 +61,15 @@ manual>>, you can see that the reset value (default value) is 1 for
 some peripherals, meaning that they are powered on by default, whereas
 it is 0 (OFF by default) for others.
 
-For example, in the timer experiment, if you use a timer other than
-timer 0 or timer 1, your experiment wouldn't work without powering up
-the timer in your program.
-
+.Powering peripherals on
+==================================================
+[source,C]
+--------------------------------------------------
+LPC_SC -> PCONP |= (1 << xx);
+// where xx is the bit number in PCONP that controls the
+// power (ON/OFF) for a specific peripheral.
+--------------------------------------------------
+==================================================
 [NOTE]
 ==================================================
 The A/D converter (ADC) power is controlled by bit 12 of the `PCONP`
@@ -83,8 +89,32 @@ that are ON by default.
 Most of the microcontroller peripherals, including timers and the ADC,
 require setting a peripheral clock (`PCLK`) to drive the peripheral.
 
-You have seen in Experiment 7 (Hardware Timers) that you can configure
-a device's `PCLK` using the `PCLKSEL0` and `PCLKSEL1` registers.
+There are four possible frequency configurations for the peripheral
+clock (`PCLK`), which are set using a pair of bits.
+
+.Peripheral Clock (`PCLK`) Frequency Configurations
+[cols="^1,2",options="header",width="60%"]
+|==================================================
+| Bit Values | Frequency Configuration
+
+| `01` | `PCLK` = `CCLK`
+| `10` | `PCLK` = `CCLK` / 2
+| `00` | `PCLK` = `CCLK` / 4
+| `11` | `PCLK` = `CCLK` / 8
+|==================================================
+
+These pairs of bits belong to the `PCLKSEL0` and `PCLKSEL1` registers,
+which control the `PCLK` frequency for all peripherals.
+
+The <<PCLKSELx_registers,`PCLKSEL0` and `PCLKSEL1` Register Fields
+figure>> illustrates some of the fields of the `PCLKSEL0` and
+`PCLKSEL1` registers. Every two bits control the `PCLK` frequency for
+a specific peripheral.
+
+
+[[PCLKSELx_registers]]
+.`PCLKSEL0` and `PCLKSEL1` Register Fields
+image::images/PCLKSEL.png["PCLKSELx"]
 
 .Exercise
 **************************************************
@@ -92,18 +122,103 @@ Refer to Chapter 4 in the <<lpc1768-manual,LPC176x manual>> to find
 out the two bits needed to configure the `PCLK` frequency for the ADC.
 **************************************************
 
-.Exercise
+.Question
 **************************************************
 What would happen if you skip this step?
 **************************************************
 
+[NOTE]
+==================================================
+For the full list of peripherals and their corresponding two bits in
+`PCLKSEL0` or `PCLKSEL1`, you can refer to Chapter 4 (section 4.7.3)
+in the <<lpc1768-manual,LPC176x manual>>.
+==================================================
 
 ==== Pin Functions
 
+[[PINSEL]]
+=== The `PINSELx` Registers
+
+[NOTE]
+==================================================
+This section is not specific to ADC. It is about configuring
+the function of a pin in a port. One possible functions is _ADC_.
+==================================================
+
+// The <<config_interrupts,Configuring Interrupts>> section above covered
+// three of the four required steps to fully setup interrupts. The
+// remaining step is to configure the hardware that is responsible for
+// generating the interrupt request. This step is largely dependent on
+// the hardware that is going to generate the request, but is always
+// required.
+
+Configuring the hardware involves a common step regardless of the
+hardware being configured. That common step is configuring the
+functions of the relevant pins.
+
+Each pin can be configured to perform one of four
+functions. Therefore, the function of each pin is controlled by two
+bits, as follows:
+
+[horizontal]
+00 :: Primary (default) function, (GPIO)
+01 :: First alternate function
+10 :: Second alternate function
+11 :: Third alternate function
+
+As such, to configure the functions of the five 32-bit ports, ten
+function selection registers are required. They are named `PINSEL0`,
+`PINSEL1`, `PINSEL2`, ..., `PINSEL9`. `PINSEL0` controls the
+functions of the lower half of port 0 (P0.0 to P0.15), `PINSEL1`
+controls the functions of pins P0.16 to P0.31, `PINSEL2` controls the
+functions of pins P1.0 to P1.15, and so on.
+
+For example, the two least significant bits in `PINSEL0` control the
+function of pin P0.0 as follows:
+
+[horizontal]
+00 :: GPIO
+01 :: `RD1`: CAN1 receiver input
+10 :: `TXD3`: Transmitter output for UART3
+11 :: `SDA1`: I2C1 data input/output
+
+(See Table 73 in the <<lpc1768-manual,LPC1768 User Manual>>.)
+
+[TIP]
+==================================================
+All `PINSELx` registers are fields in the `LPC_PINCON` structure.
+==================================================
+
+So, to configure P0.0 to function as `TXD3` instead of GPIO:
+
+[source,c]
+--------------------------------------------------
+LPC_PINCON -> PINSEL0 = 0x00000002;   // Assignments like this are not the best way,
+                                      // unless you want to set the remaining pins to GPIO
+--------------------------------------------------
+
+[NOTE]
+==================================================
+To avoid affecting other pins, You may want to use bitwise operations
+to set and/or clear the required bits in `PINSELx`.
+==================================================
+
+[NOTE]
+==================================================
+Using `00` for any pin sets its function to GPIO. The reset value for
+`PINSELx` registers is `0x00000000`. That is why the default function
+for all I/O pins after a reset is GPIO.
+==================================================
+
+[NOTE]
+==================================================
+You may want to refer back to this section whenever you want a pin to
+have a function other than GPIO.
+==================================================
+
+=== ADC Pins 
 Many microcontroller pins can be configured to perform one of many
-functions. From Experiment 3 (Interrupts), recall that the
-`PINSELx` registers are used to configure a pin's function. To use the
-ADC, you must set the function of an appropriate pin to be analog
+functions. To use the ADC, you must set the function of an appropriate pin to be analog
 input (`AD0.x` in the manual).
 
 .Exercise

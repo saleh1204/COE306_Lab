@@ -1,6 +1,6 @@
 = Experiment 7: Serial Communication
 Hazem Selmi; Mohannad Mostafa; Ahmad Khayyat; Saleh AlSaleh
-212, 11 January 2022
+212, 21 February 2022
 
 
 == Objectives
@@ -16,10 +16,10 @@ Hazem Selmi; Mohannad Mostafa; Ahmad Khayyat; Saleh AlSaleh
 - USB A-Type to Mini-B cable
 - Breadboard
 - Jumper wires
-- Pololu LSM303D 3D compass and accelerometer module
+- ADXL345 Accelerometer Module
 +
-.Pololu LSM303D 3D Compass and Accelerometer Module
-image::images/lsm303d.jpg["Pololu LSM303D 3D Compass and Accelerometer Module"]
+.ADXL345 Accelerometer Module
+image::images/adxl345.jpg["ADXL345 Accelerometer Module"]
 
 
 == Background
@@ -272,23 +272,14 @@ SCLK = 25 MHz / (2 * 1)= 12.5 MHz.
 ///////////////////////
 
 
-=== Using the LSM303D Accelerometer
+=== Using the ADXL345 Accelerometer
 
-The LSM303D chip is a system-in-package featuring two devices: a 3D
-digital linear acceleration sensor, and a 3D digital magnetic
-sensor. It includes both I^2^C and SPI interfaces. It also can be
-configured to generate an interrupt signal for free fall, motion
-detection, and magentiec field detection. The magnetic and
-accelerometer parts can be enabled or put into power-down mode
-separately.
+The ADXL345 chip is a system-in-package featuring a 3D
+digital linear acceleration sensor. It includes both I^2^C and SPI interfaces. It also can be configured to generate an interrupt signal for activity and inactivity, sensing detect the presence or lack of motion by comparing the acceleration on any axis with user-set thresholds. 
+The accelerometer part can be enabled or put into power-down mode.
 
-In this experiment, we will focus on the digital
-accelerometer. Nonetheless, the digital magnetic sensor, or compass,
-can be used by following similar procedures, as documented in the chip
-datasheet <<lsm303d-manual>>.
-
-To be able to conveniently use the LSM303D chip, we will be using the
-Pololu carrier module/board <<lsm303d-pololu>>.
+To be able to conveniently use the ADXL345 chip, we will be using the
+ADXL345 carrier module/board.
 
 ==== Accelerometers
 
@@ -313,40 +304,33 @@ industry standard way of detecting car crashes and deploying airbags
 at just the right time. <<accelerometers>>
 
 
-==== The LSM303D SPI Interface
+==== The ADXL345 SPI Interface
 
-The LSM303D chip provides an SPI interface with the device acting as a
+The ADXL345 chip provides an SPI interface with the device acting as a
 slave on the SPI bus. It allows writing and reading the registers of
 the device. The serial interface interacts with the outside world
-through 4 wires: `CS`, `SPC`, `SDI` and `SDO`.
+through 4 wires: `CS`, `SCL`, `SDA` and `SDO`.
 
 [NOTE]
 ==================================================
-Check the <<lsm303d-manual, LSM303D datasheet>>. Read the _`SPI bus
+Check the <<adxl345-manual, ADXL345 datasheet>>. Read the _`SPI bus
 Interfaces`_ section to find out how to read from and write to the
-registers of LSM303D.
+registers of ADXL345.
 ==================================================
 
 
 
-==== Using the LSM303D Accelerometer
+==== Using the ADXL345 Accelerometer
 
 The accelerometer measures acceleration along the three dimensions,
 and makes them available in the following registers:
 
-`OUT_X_L_A` (28h) LSB, `OUT_X_H_A` (29h) MSB ::
-X-axis acceleration data. The value is expressed in 16 bits as 2's complement.
-`OUT_Y_L_A` (2Ah) LSB, `OUT_X_H_A` (2Bh) MSB ::
-Y-axis acceleration data. The value is expressed in 16 bits as 2's complement.
-`OUT_X_L_A` (2Ch) LSB, `OUT_X_H_A` (2Dh) MSB ::
-Z-axis acceleration data. The value is expressed in 16 bits as 2's complement.
-
-[TIP]
-==================================================
-A simple program that shows how to read data from the accelerometer is
-available in the <<lsm303d-appnote,AN3192 Application note document>>,
-page 10.
-==================================================
+`DATAX0` (32h) LSB, `DATAX1` (33h) MSB ::
+X-axis acceleration data. The value is expressed in 10 bits as 2's complement.
+`DATAY0` (34h) LSB, `DATAY1` (35h) MSB ::
+Y-axis acceleration data. The value is expressed in 10 bits as 2's complement.
+`DATAZ0` (36h) LSB, `DATAZ1` (37h) MSB ::
+Z-axis acceleration data. The value is expressed in 10 bits as 2's complement.
 
 
 The <<accelerometer-directions>> figure shows the directions
@@ -359,7 +343,7 @@ image::images/accelerometer-directions.png["Directions of the Three Acceleromete
 
 [IMPORTANT]
 ==================================================
-You must configure the `CTRL1` register in order to read the
+You must configure the `POWER_CTL` register in order to read the
 accelerometer data.
 ==================================================
 
@@ -388,7 +372,7 @@ description is as follows:
 == Tasks
 
 . Use the LPC1768's SSP/SPI interface to read the accelerometer data
-  from the LSM303D device.
+  from the ADXL345 device.
 
 . Write a simple application to indicate different stationary
   positions. For example, indicate whether the device is tilted to the
@@ -441,21 +425,9 @@ Dimension Engineering Inc. 'A Beginner's Guide
 to Accelerometers'. Retrieved: 2015-11-7. +
 http://www.dimensionengineering.com/info/accelerometers
 
-* [[[lsm303d-manual]]]
+* [[[adxl345-manual]]]
 +
-STMicroelectronics. 'LSM303D: Ultra compact high performance e-Compass 3D accelerometer and 3D magnetometer module -- Datasheet -- preliminary data'. Doc ID 023312 Rev 1. June 2012. +
-https://www.pololu.com/file/0J703/LSM303D.pdf
+Analog Devices. 'ADXL345 Digital Accelerometer Datasheet'. +
+https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf
 
-* [[[lsm303d-pololu]]]
-+
-Pololu Corporation. 'LSM303D 3D Compass and
-Accelerometer Carrier with Voltage Regulator'. Retrieved: 2015-11-7. +
-https://www.pololu.com/product/2127
-
-* [[[lsm303d-appnote]]]
-+
-STMicroelectronics. 'AN3192 Application note:
-Using LSM303DLH for a tilt compensated electronic compass'. Doc ID
-17353 Rev 1. August 2010. +
-https://www.pololu.com/file/0J434/LSM303DLH-compass-app-note.pdf
 

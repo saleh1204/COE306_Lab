@@ -149,8 +149,8 @@ Control Register_ (`MCR`) to one (or more) of the following:
 .Timers in LPC1768
 image::images/timers2.png["Timers in LPC1768"]
 
-You can enable or disable the above actions by setting or clearing the
-three least significant bits of the `MCR` register.
+You can enable or disable the above actions when the `TC` register reaches the value stored in `MR0` register
+by setting or clearing the three least significant bits of the `MCR` register.
 
 .Setting Timer Actions Using the `MCR` Register
 [cols="^1,3,3",options="header",width="70%"]
@@ -485,11 +485,11 @@ TIP: Use external match actions for task 2.
 [bibliography]
 == Resources
 
-* [[[lpc1768-manual]]] 
-+ 
+* [[[lpc1768-manual]]]
++
 NXP Semiconductors. _UM10360 -- LPC176x/5x User
   Manual_. Rev. 3.1. 4 April 2014. +
-  https://www.waveshare.com/w/upload/0/07/LPC176x5x_User_manual_EN.pdf  
+  https://www.waveshare.com/w/upload/0/07/LPC176x5x_User_manual_EN.pdf
 
 
 

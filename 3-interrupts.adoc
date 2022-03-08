@@ -283,7 +283,7 @@ jumps to the routine associated with that interrupt request.
 There are four external interrupt channels available to the developer,
 called `EINT0`, `EINT1`, `EINT2` and `EINT3`. In older ARM versions, a
 pin's function must be set for the pin to act as an external
-interrupt. This is done using the `PINSELx` register (see <<PINSEL>>).
+interrupt. This is done using the `PINSELx` register.
 However, one of the new features of the newer
 Cortex family is accepting external interrupts from some GPIO pins!
 Any GPIO pin used for external interrupts will be using external

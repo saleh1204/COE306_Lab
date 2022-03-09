@@ -455,7 +455,7 @@ that are ON by default.
   falling edge.
 +
 Now, set the output pin high then clear it immediately. Calculate the difference
-between `CR0` and `CR2` and use `printf()` to display this difference.
+between `CR0` and `CR1` and use `printf()` to display this difference.
 +
 Can you explain the result?
 +

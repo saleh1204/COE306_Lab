@@ -1,6 +1,6 @@
 = Experiment 7: Serial Communication
 Hazem Selmi; Mohannad Mostafa; Ahmad Khayyat; Saleh AlSaleh
-212, 21 February 2022
+212, 14 March 2022
 
 
 == Objectives

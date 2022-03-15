@@ -155,7 +155,7 @@ In summary:
 ==================================================
 [source,c]
 --------------------------------------------------
-LPC_PWM1->MRx = 1000000; // PWM period is 1 second.
+LPC_PWM1->MR0 = 1000000; // PWM period is (1000000*PCLK_PERIOD) second.
 --------------------------------------------------
 ==================================================
 
@@ -303,11 +303,11 @@ it back to the neutral position, then rotate it 90 degrees to the left.
 [bibliography]
 == Resources
 
-* [[[lpc1768-manual]]] 
-+ 
+* [[[lpc1768-manual]]]
++
 NXP Semiconductors. _UM10360 -- LPC176x/5x User
   Manual_. Rev. 3.1. 4 April 2014. +
-  https://www.waveshare.com/w/upload/0/07/LPC176x5x_User_manual_EN.pdf  
+  https://www.waveshare.com/w/upload/0/07/LPC176x5x_User_manual_EN.pdf
 
 
 

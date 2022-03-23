@@ -82,7 +82,7 @@ wire. Additional wire(s) are required for data. I^2^C and SPI are
 synchronous serial protocols.
 
 
-==== LPC176 Serial Interfaces
+==== LPC1768 Serial Interfaces
 
 The LPC1768 microcontroller provides the following serial interfaces
 (<<lpc1768-manual,LPC1768 Manual>>):
@@ -145,10 +145,8 @@ Even though the `SSEL` signal is a part of the SPI protocol, it is not
 uncommon to leave its control to the software instead of the SPI/SSP
 controller. The <<lpc1768-manual,LPC176x manual>> states that "This
 signal is not directly driven by the master. It could be driven by a
-simple general purpose I/O under software control." In the LPCXpresso
-Base Board, `SSEL` is connected to GPIO P2.2. It should be driven low
-(by software) prior to placing data in the _Data Register_ (`DR`), and
-then switched back to high.
+simple general purpose I/O under software control." In the LPC1768 mbed Board, `SSEL` is connected to GPIO P0.16.
+It should be driven low (by software) prior to placing data in the _Data Register_ (`DR`), and then switched back to high when the transmission is complete.
 
 
 ==== Using SSP/SPI in LPC1768
@@ -209,9 +207,9 @@ The `CR0` register has 5 fields:
 10 :: Microwire
 11 :: Not supported
 
-. Clock Out Polarity (bit 6): should be 0 in our application.
+. Clock Out Polarity (bit 6): should be 1 in our application.
 
-. Clock Out Phase (bit 7): should be 0 in our application.
+. Clock Out Phase (bit 7): should be 1 in our application.
 
 . Serial Clock Rate (`SCR`) (bits 8-15): used with the _Clock Prescale
   Register_ (`CPSR`) to control the SSP clock. This is crucial when
@@ -275,7 +273,7 @@ SCLK = 25 MHz / (2 * 1)= 12.5 MHz.
 === Using the ADXL345 Accelerometer
 
 The ADXL345 chip is a system-in-package featuring a 3D
-digital linear acceleration sensor. It includes both I^2^C and SPI interfaces. It also can be configured to generate an interrupt signal for activity and inactivity, sensing detect the presence or lack of motion by comparing the acceleration on any axis with user-set thresholds. 
+digital linear acceleration sensor. It includes both I^2^C and SPI interfaces. It also can be configured to generate an interrupt signal for activity and inactivity, sensing detect the presence or lack of motion by comparing the acceleration on any axis with user-set thresholds.
 The accelerometer part can be enabled or put into power-down mode.
 
 To be able to conveniently use the ADXL345 chip, we will be using the
@@ -326,11 +324,11 @@ The accelerometer measures acceleration along the three dimensions,
 and makes them available in the following registers:
 
 `DATAX0` (32h) LSB, `DATAX1` (33h) MSB ::
-X-axis acceleration data. The value is expressed in 10 bits as 2's complement.
+X-axis acceleration data. The value is expressed in 10 bits as 2's complement (right justified).
 `DATAY0` (34h) LSB, `DATAY1` (35h) MSB ::
-Y-axis acceleration data. The value is expressed in 10 bits as 2's complement.
+Y-axis acceleration data. The value is expressed in 10 bits as 2's complement (right justified).
 `DATAZ0` (36h) LSB, `DATAZ1` (37h) MSB ::
-Z-axis acceleration data. The value is expressed in 10 bits as 2's complement.
+Z-axis acceleration data. The value is expressed in 10 bits as 2's complement (right justified).
 
 
 The <<accelerometer-directions>> figure shows the directions
@@ -413,11 +411,11 @@ Embedded Artists AB. 'LPCXpresso Base Board
 Rev B User's Guide'. 2013-01-25. +
 http://www.embeddedartists.com/sites/default/files/support/xpr/base/LPCXpresso_BaseBoard_rev_B_Users_Guide.pdf
 
-* [[[lpc1768-manual]]] 
-+ 
+* [[[lpc1768-manual]]]
++
 NXP Semiconductors. _UM10360 -- LPC176x/5x User
   Manual_. Rev. 3.1. 4 April 2014. +
-  https://www.waveshare.com/w/upload/0/07/LPC176x5x_User_manual_EN.pdf  
+  https://www.waveshare.com/w/upload/0/07/LPC176x5x_User_manual_EN.pdf
 
 * [[[accelerometers]]]
 +

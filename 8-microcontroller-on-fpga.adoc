@@ -207,8 +207,6 @@ configuration options:
 
 - CLOCK
 - LED x 8
-- EEPROM, 2KB
-- SDRAM, 32MB
 
 Then, press _Generate_ to create a Quartus II project. After that, open the generated project in Quartus II by opening the `.qpf` file. In the next section, we will use Qsys from within this project.
 
